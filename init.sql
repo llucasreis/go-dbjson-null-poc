@@ -11,4 +11,4 @@ INSERT INTO games (title, metadata) VALUES ('Kindom Hearts', '{"tags": ["RPG"]}'
 
 INSERT INTO games (title, description, metadata) VALUES ('God of War', 'Franchise reboot', '{"platforms": ["PS4"]}');
 
-INSERT INTO games (title) VALUES ('The Legend of Zelda2');
+INSERT INTO games (title) VALUES ('The Legend of Zelda');
