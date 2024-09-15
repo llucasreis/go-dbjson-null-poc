@@ -16,12 +16,12 @@ func NewRepository(db *sql.DB) *Repository {
 }
 
 func (r *Repository) FindByID(id int64) (*domain.Game, error) {
-	query := `select id, title, metadata from games where id = $1`
+	query := `select id, title, description, metadata from games where id = $1`
 
 	row := r.db.QueryRow(query, id)
 
 	var model Game
-	err := row.Scan(&model.ID, &model.Title, &model.Metadata)
+	err := row.Scan(&model.ID, &model.Title, &model.Description, &model.Metadata)
 	if err != nil {
 		log.Println("[ERROR] finding game by id: ", err.Error())
 		return nil, err

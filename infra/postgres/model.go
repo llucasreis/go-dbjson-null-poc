@@ -10,7 +10,7 @@ import (
 type Game struct {
 	ID          int64                     `json:"id"`
 	Title       string                    `json:"title"`
-	Description string                    `json:"description"`
+	Description sql.NullString            `json:"description"`
 	Metadata    sql.Null[json.RawMessage] `json:"metadata"`
 }
 
@@ -19,11 +19,20 @@ func (g *Game) ToDomain() (*domain.Game, error) {
 	if err != nil {
 		return nil, err
 	}
+	description := g.getDescription()
 	return &domain.Game{
-		ID:       g.ID,
-		Title:    g.Title,
-		Metadata: metadata,
+		ID:          g.ID,
+		Title:       g.Title,
+		Description: description,
+		Metadata:    metadata,
 	}, nil
+}
+
+func (g *Game) getDescription() string {
+	if g.Description.Valid {
+		return g.Description.String
+	}
+	return ""
 }
 
 func (g *Game) getMetadata() (map[string]any, error) {
